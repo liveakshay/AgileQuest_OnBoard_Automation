@@ -1,0 +1,17 @@
+# commands to get this going
+# $ crontab -l (to list crontab contents)
+# $ env EDITOR=nano crontab -e (to edit crontab contents)
+# once in the editor: (CTRL+O, then enter to save) and (CTRL+X, then enter to exit)
+
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+MAILTO=_your_notifications_email@domain.com
+
+# run book_seat 1 minute after midnight (book_seat will also arrange to wake up the system at 8am, see below)
+1 0 * * 1,2,3,4,5 /usr/local/bin/book_seat.sh 2>&1
+
+# System will wake up at 8am in time for the morning run. 
+# For this to work, the OS must be setup to have a longer than 5 minute sleep threshold, 
+# because cron-jobs set up via cron-tab won't run if the computer is not awake!
+
+#run check_in at 8:01AM every morning
+1 8 * * 1,2,3,4,5 /usr/local/bin/check_in.sh 2>&1
